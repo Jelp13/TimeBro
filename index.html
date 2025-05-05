@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskMaster - Organizador de Tareas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><span>📝</span> TimeBro</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="app-container">
+            <!-- Sidebar con filtros y estadísticas -->
+            <aside class="sidebar">
+                <div class="filter-section">
+                    <h3>Filtros</h3>
+                    <div class="filter-group">
+                        <label for="filter-category">Categoría:</label>
+                        <select id="filter-category" class="form-control">
+                            <option value="todas">Todas</option>
+                            <option value="trabajo">Trabajo</option>
+                            <option value="estudio">Estudio</option>
+                            <option value="personal">Personal</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-priority">Prioridad:</label>
+                        <select id="filter-priority" class="form-control">
+                            <option value="todas">Todas</option>
+                            <option value="alta">Alta</option>
+                            <option value="media">Media</option>
+                            <option value="baja">Baja</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-status">Estado:</label>
+                        <select id="filter-status" class="form-control">
+                            <option value="todas">Todas</option>
+                            <option value="pendiente">Pendientes</option>
+                            <option value="completada">Completadas</option>
+                        </select>
+                    </div>
+                    <button id="apply-filters" class="btn btn-primary">Aplicar Filtros</button>
+                </div>
+
+                <div class="stats-section">
+                    <h3>Estadísticas</h3>
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <div class="stat-value" id="total-tasks">0</div>
+                            <div class="stat-label">Total Tareas</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="completed-tasks">0</div>
+                            <div class="stat-label">Completadas</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="completion-rate">0%</div>
+                            <div class="stat-label">Tasa de Éxito</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="tasks-chart"></canvas>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Contenido principal -->
+            <main class="main-content">
+                <div class="tasks-header">
+                    <h2>Mis Tareas</h2>
+                    <button id="add-task-btn" class="btn btn-primary">+ Nueva Tarea</button>
+                </div>
+
+                <div class="tab-container">
+                    <div class="tabs">
+                        <div class="tab active" data-tab="list-view">Lista</div>
+                        <div class="tab" data-tab="calendar-view">Calendario</div>
+                    </div>
+
+                    <div class="tab-content active" id="list-view">
+                        <div id="tasks-container">
+                            <!-- Aquí se generarán las tareas dinámicamente -->
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="calendar-view">
+                        <div class="calendar-view">
+                            <!-- Aquí se generará el calendario dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal para añadir/editar tareas -->
+    <div class="overlay" id="task-modal-overlay">
+        <div class="modal" id="task-modal">
+            <div class="modal-header">
+                <h3 id="modal-title">Nueva Tarea</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <form id="task-form">
+                <input type="hidden" id="task-id">
+                <div class="form-group">
+                    <label for="task-title-input">Título:</label>
+                    <input type="text" id="task-title-input" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="task-description">Descripción:</label>
+                    <textarea id="task-description" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="task-category">Categoría:</label>
+                    <select id="task-category" class="form-control" required>
+                        <option value="trabajo">Trabajo</option>
+                        <option value="estudio">Estudio</option>
+                        <option value="personal">Personal</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="task-priority">Prioridad:</label>
+                    <select id="task-priority" class="form-control" required>
+                        <option value="alta">Alta</option>
+                        <option value="media">Media</option>
+                        <option value="baja">Baja</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="task-due-date">Fecha límite:</label>
+                    <input type="date" id="task-due-date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="task-reminder">Recordatorio:</label>
+                    <input type="datetime-local" id="task-reminder" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notificación -->
+    <div class="notification" id="notification">
+        <div id="notification-message"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
